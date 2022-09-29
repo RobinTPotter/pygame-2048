@@ -1,9 +1,7 @@
 #! /usr/bin/python3
-import sys
+
 import pygame as pg
 import threading
-
-
 
 class Colours():
     red = (255,0,0)
@@ -15,12 +13,6 @@ class Colours():
     pink = (255,200,200)
     yellow = (255,255,0)
 
-
-
-
-
-
-
 class Gogo():
     def __init__(self, size=(640, 480)):
         self.clock = pg.time.Clock()
@@ -30,7 +22,7 @@ class Gogo():
         self.thread = threading.Thread(target=self.gogo)
         pg.font.init()
         self.w,self.h = 4,4
-        self.cw, self.ch = 50,30
+        self.cw, self.ch = 40,40
         self.init()
         self.align()
         print(self.grid)
@@ -132,7 +124,7 @@ class Gogo():
         self.add_number()
 
     def add_number(self):
-        loop = len(self.grid)*len(self.grid[0])
+        loop = self.w*self.h
         target = None
         while target is None:
             loop -=1
@@ -140,7 +132,9 @@ class Gogo():
             x,y = random.randint(0,self.w-1), random.randint(0,self.h-1)
             target = self.grid[y][x]
             if target!=0: target=None
-            if loop==0: return
+            if loop==0:
+                print("no holes")
+                return
         self.grid[y][x] = 2
         print (f"add new to {x} {y}")
         return x,y  
